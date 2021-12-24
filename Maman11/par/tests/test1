@@ -1,0 +1,18 @@
+#include <stdlib.h>
+
+int main()
+{
+	printf("Hello user! this is a test program ([{");
+	/* We are now testing the program with multiple [[
+	[[ lined comments */ ()[][]
+	printf("()()()()[][][][");
+	{{{[[[]]]}}};
+	if(x > y)
+	{
+	    printf("x is bigger");
+	}
+	else
+	{
+	    printf("y is bigger");
+	}
+}

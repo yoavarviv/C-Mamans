@@ -1,0 +1,39 @@
+Hello! Please enter a text to check!
+Please do not enter rows with more than 100 characters!
+#include <stdlib.h>
+This line is balanced
+
+This line is balanced
+int main()
+This line is balanced
+{
+This line is NOT balanced
+	printf("Hello user! this is a test program ([{");
+This line is balanced
+	/* We are now testing the program with multiple [[
+This line is balanced
+	[[ lined comments */ ()[][]
+This line is balanced
+	printf("()()()()[][][][");
+This line is balanced
+	{{{[[[]]]}}};
+This line is balanced
+	if(x > y)
+This line is balanced
+	{
+This line is NOT balanced
+	    printf("x is bigger");
+This line is balanced
+	}
+This line is NOT balanced
+	else
+This line is balanced
+	{
+This line is NOT balanced
+	    printf("y is bigger");
+This line is balanced
+	}
+This line is NOT balanced
+}
+This line is NOT balanced
+File is balanced

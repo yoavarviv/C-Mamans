@@ -1,0 +1,37 @@
+Hello! Please enter a text to check!
+Please do not enter rows with more than 100 characters!
+[][][][](((())))
+This line is balanced
+()[]{}{}()
+This line is balanced
+{{{{{{{{}}}}}}}}{{(([[]]))}}
+This line is balanced
+[][][][][]
+This line is balanced
+()()()()()
+This line is balanced
+{}{}{}{}{}
+This line is balanced
+{{{}}
+This line is NOT balanced
+()(
+This line is NOT balanced
+[
+This line is NOT balanced
+(
+This line is NOT balanced
+)
+This line is NOT balanced
+]
+This line is NOT balanced
+}
+This line is NOT balanced
+((
+This line is NOT balanced
+(((
+This line is NOT balanced
+((((
+This line is NOT balanced
+)))))))))
+This line is NOT balanced
+File is not balanced

@@ -1,0 +1,8 @@
+Hello!
+Please Enter your string to be shortened:
+Max size: 80 characters
+
+The original string:
+abcdef#LLMN 67890123#HIJKMNOpqrstu(?@AB,1124-8)
+The shortened string:
+a-f#LL-N 6-90-3#H-KM-Op-u(?@AB,1124-8)

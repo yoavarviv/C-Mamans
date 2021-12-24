@@ -1,0 +1,8 @@
+Hello!
+Please Enter your string to be shortened:
+Max size: 80 characters
+
+The original string:
+abcd123 hijklmn opqr knhjsndflm ?@@
+The shortened string:
+a-d1-3 h-n o-r knhjsndflm ?@@

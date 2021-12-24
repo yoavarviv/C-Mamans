@@ -1,0 +1,23 @@
+Hello! Please enter a text to check!
+Please do not enter rows with more than 100 characters!
+/* This code is not going to be balanced, huh? [ */
+This line is balanced
+
+This line is balanced
+int main()
+This line is balanced
+{
+This line is NOT balanced
+    if(x > y)
+This line is balanced
+    } /* EDGE CASE - UNBALANCED [][] */
+This line is NOT balanced
+	z[(1)] = 0;
+This line is balanced
+	printf("x > y\n");
+This line is balanced
+    { /* 2 OPENING 2 CLOSING, WHAT WILL HAPPEN? */
+This line is NOT balanced
+}
+This line is NOT balanced
+File is not balanced

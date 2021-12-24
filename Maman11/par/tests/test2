@@ -1,0 +1,10 @@
+/* This code is not going to be balanced, huh? [ */
+
+int main()
+{
+    if(x > y)
+    } /* EDGE CASE - UNBALANCED [][] */
+	z[(1)] = 0;
+	printf("x > y\n");
+    { /* 2 OPENING 2 CLOSING, WHAT WILL HAPPEN? */
+}

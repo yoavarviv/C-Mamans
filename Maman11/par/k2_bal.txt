@@ -1,0 +1,16 @@
+abcd((aaa))
+abcd ([ ])
+abcd /* ((((( xxxx 
+[[[
+]
+)
+aaaaa*/
+{
+      {
+	  aaa
+	  aaa
+	  }
+	mmmm "(((("
+}	
+
+

@@ -1,0 +1,8 @@
+Hello!
+Please Enter your string to be shortened:
+Max size: 80 characters
+
+The original string:
+abcddd 123455 ?@ ABCD ABD AB
+The shortened string:
+a-ddd 1-55 ?@ A-D ABD AB
