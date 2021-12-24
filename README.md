@@ -8,4 +8,4 @@ If you are a student in the course, please do notice I do not, in any way, condo
 
 Please use it wisely :)
 
-** The code snippets in here are not the only solution, if you programmed a different solution, it does not mean yours is wrong.
+* The code snippets in here are not the only solution, if you programmed a different solution, it does not mean yours is wrong. *
