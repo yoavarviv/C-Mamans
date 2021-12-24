@@ -37,13 +37,17 @@ void getCommand(){
 		while(isalpha(c = getchar()) || c == '_'){
 			command[i++] = c;
 		}
-	
+		
+		/*
+		if(c == '\n' || c == EOF){
+			alertError("Missing complex variable");
+			i = 0;
+			continue; 
+		}
+		if(c == ',') { alertError("Multiple consecutive commas"); i = 0; continue; }
+		*/
+		
 		command[i] = '\0';
-	
-		/*if(c != ' ' && c != EOF){
-			printf("Illegal character after command.");
-		} */
-	
 		inputSwitch(command);
 		i = 0;
 	}
@@ -56,19 +60,30 @@ void inputSwitch(char command[]){
 	int paramIndex = 0, param1Index = 0;
 	
 	if(!strcmp(command, "read_comp")){
-		while(isspace(param = getchar()));
+	
+		while(isspace(param = getchar()) && param != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
@@ -78,11 +93,16 @@ void inputSwitch(char command[]){
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 		
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
@@ -93,8 +113,10 @@ void inputSwitch(char command[]){
 			return;				
 		}
 		
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if((c = getchar())!= '\n' && c != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}	
@@ -107,42 +129,60 @@ void inputSwitch(char command[]){
 	else if(!strcmp(command, "print_comp")){
 		char c;
 		
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if((c = getchar()) != '\n' && c != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}	
+			
 		paramIndex = param - '0';
 		print_comp(&params[paramIndex]);
 	}
 	/*------------------------------------------------------------------------------*/
 	else if(!strcmp(command, "add_comp")){
 	
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
-		while(isspace(param1 = getchar()));
+		while(isspace(param1 = getchar()) && param1 != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param1)){
@@ -151,8 +191,10 @@ void inputSwitch(char command[]){
 		}
 		
 		
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if(getchar() != '\n' && getchar() != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}	
@@ -163,33 +205,49 @@ void inputSwitch(char command[]){
 	}
 	/*------------------------------------------------------------------------------*/
 	else if(!strcmp(command, "sub_comp")){
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
-		while(isspace(param1 = getchar()));
+		while(isspace(param1 = getchar()) && param1 != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param1)){
-			alertError("Undefined complex variable.");
+			if(!isalpha(param1) || param1 == '\n' || param1 == EOF){
+				alertError("Missing complex variable / Invalid complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
+		while(isspace(c = getchar()) && c != '\n');
 		
 		/* Check if they entered extraneous text after the end of the command */
-		if(getchar() != '\n' && getchar() != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}	
@@ -201,19 +259,29 @@ void inputSwitch(char command[]){
 	/*------------------------------------------------------------------------------*/
 	if(!strcmp(command, "mult_comp_real")){
 	
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
@@ -223,8 +291,10 @@ void inputSwitch(char command[]){
 			return;
 		}
 		
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if(getchar() != '\n' && getchar() != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}	
@@ -235,19 +305,29 @@ void inputSwitch(char command[]){
 	/*------------------------------------------------------------------------------*/
 	if(!strcmp(command, "mult_comp_img")){
 	
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
@@ -257,8 +337,10 @@ void inputSwitch(char command[]){
 			return;
 		}
 		
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if(getchar() != '\n' && getchar() != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}
@@ -269,32 +351,49 @@ void inputSwitch(char command[]){
 	/*------------------------------------------------------------------------------*/
 	if(!strcmp(command, "mult_comp_comp")){
 	
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 	
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
-		while(isspace(c = getchar()));
+		while(isspace(c = getchar()) && c != '\n');
 
 		/* Check if they entered illegal characters after the parameter */
 		if(c != ','){
-			alertError("Illegal character/characters after parameter.");
+			if(c == '\n' || c == EOF){
+				alertError("Missing parameter");
+			}
+			else{
+				alertError("Illegal character/characters after parameter.");
+			}
 			return;
 		}
 		
-		while(isspace(param1 = getchar()));
+		while(isspace(param1 = getchar()) && param1 != '\n');
 		
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param1)){
-			alertError("Undefined complex variable.");
+			if(param1 == '\n' || param1 == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
 		
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if(getchar() != '\n' && getchar() != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}	
@@ -308,32 +407,42 @@ void inputSwitch(char command[]){
 		char c;
 		char param;
 		
-		while(isspace(param = getchar()));
+		while(isspace(param = getchar()) && param != '\n');
 	
 		/* Check if they provided an invalid parameter */
 		if(!isValidParam(param)){
-			alertError("Undefined complex variable.");
+			if(param == '\n' || param == EOF){
+				alertError("Missing complex variable");
+			}
+			else{
+				alertError("Undefined complex variable.");
+			}
 			return;
 		}
+		
+		while(isspace(c = getchar()) && c != '\n');
 		
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
-		}	
+		}
+			
 		paramIndex = param - '0';
 		abs_comp(&params[paramIndex]);
 	}
 	/*------------------------------------------------------------------------------*/
 	else if(!strcmp(command, "stop")){
+	
+		while(isspace(c = getchar()) && c != '\n');
+		
 		/* Check if they entered extraneous text after the end of the command */
-		if(getchar() != '\n' && getchar() != EOF){
+		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
 			return;
 		}
-		exit(0);	
+		exit(0);
 	}
-	
 	
 }
 
