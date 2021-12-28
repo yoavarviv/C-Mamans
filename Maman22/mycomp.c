@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "complex.h"
 #include <string.h>
+#include <stdbool.h>
 
 void getCommand();
 void inputSwitch(char command[]);
@@ -29,6 +30,7 @@ void getCommand(){
 	char command[MAX_LEN] = {0};
 	int i = 0;
 	char c;
+	bool isValid = true;
 	
 	
 	while(1){
@@ -38,18 +40,17 @@ void getCommand(){
 			command[i++] = c;
 		}
 		
-		/*
-		if(c == '\n' || c == EOF){
-			alertError("Missing complex variable");
-			i = 0;
-			continue; 
-		}
-		if(c == ',') { alertError("Multiple consecutive commas"); i = 0; continue; }
-		*/
+		if(c == '\n' || c == EOF) { alertError("Illegal Command"); isValid = false; }
+		else if(c == ',') { alertError("Illegal comma after command"); isValid = false; }
 		
+			
 		command[i] = '\0';
-		inputSwitch(command);
+		if(isValid){
+			inputSwitch(command);
+			while(getchar() != '\n');
+		}
 		i = 0;
+		isValid = true;
 	}
 	
 }
@@ -118,6 +119,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);
 			return;
 		}	
 		
@@ -146,7 +148,8 @@ void inputSwitch(char command[]){
 		
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
-			alertError("Extraneous text after end of command.");		
+			alertError("Extraneous text after end of command.");	
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}	
 			
@@ -196,6 +199,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}	
 		
@@ -249,6 +253,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}	
 			
@@ -296,6 +301,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}	
 		
@@ -342,6 +348,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}
 		
@@ -395,6 +402,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}	
 		
@@ -425,6 +433,7 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}
 			
@@ -439,10 +448,12 @@ void inputSwitch(char command[]){
 		/* Check if they entered extraneous text after the end of the command */
 		if(c != '\n' && c != EOF){
 			alertError("Extraneous text after end of command.");		
+			while((c = getchar()) != '\n' && c != EOF);	
 			return;
 		}
 		exit(0);
 	}
+	else{ alertError("Unknown Command"); return; }
 	
 }
 
