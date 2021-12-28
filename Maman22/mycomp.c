@@ -40,15 +40,16 @@ void getCommand(){
 			command[i++] = c;
 		}
 		
-		if(c == '\n' || c == EOF) { alertError("Illegal Command"); isValid = false; }
+		if(c == '\n' || c == EOF) { alertError("Missing parameter/s"); isValid = false; }
 		else if(c == ',') { alertError("Illegal comma after command"); isValid = false; }
 		
 			
 		command[i] = '\0';
 		if(isValid){
 			inputSwitch(command);
-			while(getchar() != '\n');
 		}
+		while(getchar() != '\n');
+		
 		i = 0;
 		isValid = true;
 	}
