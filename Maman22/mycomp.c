@@ -54,40 +54,47 @@ void executeCommand(struct complex params[]){
 	i = j = 0;
 	
 	fflush(stdin);
+	
 	if(fgets(input, MAX_LEN, stdin) == NULL){
 		fprintf(stderr, "EOF Entered.");
 		return;
 	}
 	
-	input[strcspn(input, "\n")] = 0;
+	input[strcspn(input, "\n")] = 0; /* replace the \n with a null terminator */
 	
 	for(; isalpha(input[i]) || input[i] == '_'; i++){
-		command[j++] = input[i];
+		command[j++] = input[i]; /* get each character of the command */ 
 	}
 	command[j] = '\0';
 	
+	/* Loop over each command, and check if it's name is equal to a known command */
 	for(i = 0; cmd[i].func != NULL; i++){
 		if(strcmp(command, cmd[i].name)==0)
 			break;
 	}
 	
+	/* if it isn't, we print an error */
 	if(cmd[i].func == NULL){
-		fprintf(stderr, "Command does not exist:%s\n", command);
+		fprintf(stderr, "Command does not exist: %s\n", command);
 		return;
 	}
 	
+	/* if it is, we call the function that executes the command */
 	else (*(cmd[i].func))(params, input);
 	
 }
 
+/* This function returns whether a given param is valid. */
 int isValidParam(char param){
-	return param == 'A' || param == 'B' || param == 'C' || param == 'D' || param == 'E' || param == 'F';
+	return param >= 'A' && param <= 'F';
 }
 
+/* This function prints an error with a given message */
 void alertError(char errorMsg[]){
-	printf("%s\n", errorMsg);
+	fprintf(stderr, "%s\n", errorMsg);
 }
 
+/* This function validates the user input and if it is valid it calls the function read_comp */
 void read_comp_exec(struct complex params[], char input[]){	
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
@@ -95,28 +102,38 @@ void read_comp_exec(struct complex params[], char input[]){
 	char param;
 	num1 = num2 = 0;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
+	
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
-	}
+	}	
 	i++;
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
+	
 	if(input[i] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
+	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the number */
 	
 	while(isdigit(input[i]) || input[i] == '.' || input[i] == '-') number[j++] = input[i++]; /* getting all the digits of the number. */
@@ -127,7 +144,8 @@ void read_comp_exec(struct complex params[], char input[]){
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
 	if(input[i++] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the number */
@@ -148,21 +166,28 @@ void read_comp_exec(struct complex params[], char input[]){
 	read_comp(&params[paramIndex], num1, num2);
 }
 
+/* This function validates the user input and if it is valid it calls the function print_comp */
 void print_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0;
 	char param;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -178,21 +203,28 @@ void print_comp_exec(struct complex params[], char input[]){
 	print_comp(&params[paramIndex]);
 }
 
+/* This function validates the user input and if it is valid it calls the function add_comp */
 void add_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -200,7 +232,8 @@ void add_comp_exec(struct complex params[], char input[]){
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
 	if(input[i] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
@@ -213,7 +246,8 @@ void add_comp_exec(struct complex params[], char input[]){
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(param1 == '\n' || param1 == EOF || param1 == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -230,21 +264,28 @@ void add_comp_exec(struct complex params[], char input[]){
 	add_comp(&params[paramIndex], &params[param1Index]);
 }
 
+/* This function validates the user input and if it is valid it calls the function sub_comp */
 void sub_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -252,7 +293,8 @@ void sub_comp_exec(struct complex params[], char input[]){
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
 	if(input[i] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
@@ -264,7 +306,8 @@ void sub_comp_exec(struct complex params[], char input[]){
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(param1 == '\n' || param1 == EOF || param1 == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable."); 
 			return; 
 		}
 	}
@@ -281,34 +324,44 @@ void sub_comp_exec(struct complex params[], char input[]){
 	sub_comp(&params[paramIndex], &params[param1Index]);
 }
 
+/* This function validates the user input and if it is valid it calls the function mult_comp_real */
 void mult_comp_real_exec(struct complex params[], char input[]){
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
 	double num1;
 	char param;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
 	i++;
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
+	
 	if(input[i] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
+	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the number */
 	
 	while(isdigit(input[i]) || input[i] == '.' || input[i] == '-') number[j++] = input[i++]; /* getting all the digits of the number. */
@@ -327,23 +380,30 @@ void mult_comp_real_exec(struct complex params[], char input[]){
 	mult_comp_real(&params[paramIndex], num1);
 }
 
+/* This function validates the user input and if it is valid it calls the function mult_comp_img */
 void mult_comp_img_exec(struct complex params[], char input[]){
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
 	double num1;
 	char param;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -351,7 +411,8 @@ void mult_comp_img_exec(struct complex params[], char input[]){
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
 	if(input[i] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
@@ -373,21 +434,28 @@ void mult_comp_img_exec(struct complex params[], char input[]){
 	mult_comp_img(&params[paramIndex], num1);
 }
 
+/* This function validates the user input and if it is valid it calls the function mult_comp_comp */
 void mult_comp_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -395,7 +463,8 @@ void mult_comp_comp_exec(struct complex params[], char input[]){
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
 	if(input[i] != ',') { 
-		alertError("Missing comma"); 
+		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
+		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
@@ -407,7 +476,8 @@ void mult_comp_comp_exec(struct complex params[], char input[]){
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(param1 == '\n' || param1 == EOF || param1 == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable."); 
 			return; 
 		}
 	}
@@ -424,21 +494,28 @@ void mult_comp_comp_exec(struct complex params[], char input[]){
 	mult_comp_comp(&params[paramIndex], &params[param1Index]);
 }
 
+/* This function validates the user input and if it is valid it calls the function abs_comp */
 void abs_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0;
 	char param;
 
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the parameter */
 	
-	if(!isValidParam(param = input[++i])){
+	if(!isValidParam(param = input[i])){
 		if(input[i] == ','){ 
 			alertError("Invalid comma"); 
 			return;
 		}
 		else { 
-			alertError("Missing or invalid parameter"); 
+			if(input[i + 1] == '\n' || input[i + 1] == EOF || input[i + 1] == 0) alertError("Missing parameter.");
+			else alertError("Undefined complex variable.");
 			return; 
 		}
 	}
@@ -454,9 +531,15 @@ void abs_comp_exec(struct complex params[], char input[]){
 	abs_comp(&params[paramIndex]);
 }
 
+/* This function validates the user input and if it is valid it calls the function stop */
 void stop_exec(struct complex params[], char input[]){
 	int i = 0;
-	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
+	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
+	
+	if(input[i] == ','){
+		alertError("Illegal comma"); 
+		return;	
+	}
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the \n (in case it's valid) */
 	
