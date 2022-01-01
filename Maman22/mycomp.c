@@ -177,6 +177,7 @@ void print_comp_exec(struct complex params[], char input[]){
 	paramIndex = param - 'A';
 	print_comp(&params[paramIndex]);
 }
+
 void add_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
@@ -325,6 +326,7 @@ void mult_comp_real_exec(struct complex params[], char input[]){
 	paramIndex =  param - 'A';
 	mult_comp_real(&params[paramIndex], num1);
 }
+
 void mult_comp_img_exec(struct complex params[], char input[]){
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
@@ -451,6 +453,7 @@ void abs_comp_exec(struct complex params[], char input[]){
 	paramIndex = param - 'A';
 	abs_comp(&params[paramIndex]);
 }
+
 void stop_exec(struct complex params[], char input[]){
 	int i = 0;
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++) /* skipping the command */
