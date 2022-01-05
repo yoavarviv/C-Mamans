@@ -207,7 +207,8 @@ void print_comp_exec(struct complex params[], char input[]){
 void add_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
-
+	struct complex res;
+	
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
 	
 	if(input[i] == ','){
@@ -261,13 +262,15 @@ void add_comp_exec(struct complex params[], char input[]){
 	
 	paramIndex =  param - 'A';
 	param1Index = param1 - 'A';
-	add_comp(&params[paramIndex], &params[param1Index]);
+	res = add_comp(&params[paramIndex], &params[param1Index]);
+	print_comp(&res);
 }
 
 /* This function validates the user input and if it is valid it calls the function sub_comp */
 void sub_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
+	struct complex res;
 
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
 	
@@ -321,7 +324,8 @@ void sub_comp_exec(struct complex params[], char input[]){
 	
 	paramIndex =  param - 'A';
 	param1Index = param1 - 'A';
-	sub_comp(&params[paramIndex], &params[param1Index]);
+	res = sub_comp(&params[paramIndex], &params[param1Index]);
+	print_comp(&res);
 }
 
 /* This function validates the user input and if it is valid it calls the function mult_comp_real */
@@ -330,6 +334,7 @@ void mult_comp_real_exec(struct complex params[], char input[]){
 	char number[MAX_LEN];
 	double num1;
 	char param;
+	struct complex res;
 
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
 	
@@ -377,7 +382,8 @@ void mult_comp_real_exec(struct complex params[], char input[]){
 	}
 	
 	paramIndex =  param - 'A';
-	mult_comp_real(&params[paramIndex], num1);
+	res = mult_comp_real(&params[paramIndex], num1);
+	print_comp(&res);
 }
 
 /* This function validates the user input and if it is valid it calls the function mult_comp_img */
@@ -386,6 +392,7 @@ void mult_comp_img_exec(struct complex params[], char input[]){
 	char number[MAX_LEN];
 	double num1;
 	char param;
+	struct complex res;
 
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
 	
@@ -431,13 +438,15 @@ void mult_comp_img_exec(struct complex params[], char input[]){
 	}
 	
 	paramIndex =  param - 'A';
-	mult_comp_img(&params[paramIndex], num1);
+	res = mult_comp_img(&params[paramIndex], num1);
+	print_comp(&res);
 }
 
 /* This function validates the user input and if it is valid it calls the function mult_comp_comp */
 void mult_comp_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
+	struct complex res;
 
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
 	
@@ -491,13 +500,15 @@ void mult_comp_comp_exec(struct complex params[], char input[]){
 	
 	paramIndex =  param - 'A';
 	param1Index = param1 - 'A';
-	mult_comp_comp(&params[paramIndex], &params[param1Index]);
+	res = mult_comp_comp(&params[paramIndex], &params[param1Index]);
+	print_comp(&res);
 }
 
 /* This function validates the user input and if it is valid it calls the function abs_comp */
 void abs_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0;
 	char param;
+	struct complex res;
 
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */
 	
@@ -528,7 +539,8 @@ void abs_comp_exec(struct complex params[], char input[]){
 	}
 	
 	paramIndex = param - 'A';
-	abs_comp(&params[paramIndex]);
+	res = abs_comp(&params[paramIndex]);
+	print_comp(&res);
 }
 
 /* This function validates the user input and if it is valid it calls the function stop */

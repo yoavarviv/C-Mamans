@@ -16,12 +16,12 @@ typedef struct complex{
 void initComplex();
 void read_comp(complex *param, double re, double im);
 void print_comp(complex *param);
-void add_comp(complex *param, complex *param1);
-void sub_comp(complex *param, complex *param1);
-void mult_comp_real(complex *param, double re);
-void mult_comp_img(complex *param, double im);
-void mult_comp_comp(complex *param, complex *param1);
-void abs_comp(complex *param);
+struct complex add_comp(complex *param, complex *param1);
+struct complex sub_comp(complex *param, complex *param1);
+struct complex mult_comp_real(complex *param, double re);
+struct complex mult_comp_img(complex *param, double im);
+struct complex mult_comp_comp(complex *param, complex *param1);
+struct complex abs_comp(complex *param);
 void stop();
 
 
