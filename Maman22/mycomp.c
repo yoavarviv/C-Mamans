@@ -138,6 +138,11 @@ void read_comp_exec(struct complex params[], char input[]){
 	
 	while(isdigit(input[i]) || input[i] == '.' || input[i] == '-') number[j++] = input[i++]; /* getting all the digits of the number. */
 	
+	if(input[i] == ',' && j == 0){
+		alertError("Multiple consecutive commas");
+		return;
+	}
+	
 	number[j] = '\0';
 	num1 = atof(number); /* converting to a number */
 	if(j == 0){ alertError("Wrong parameters, second parameter should be a number."); return; }
@@ -152,6 +157,11 @@ void read_comp_exec(struct complex params[], char input[]){
 	
 	j = 0;
 	while(isdigit(input[i]) || input[i] == '.' || input[i] == '-') number[j++] = input[i++];  /* getting all the digits of the number. */
+	
+	if(input[i] == ',' && j == 0){
+		alertError("Multiple consecutive commas");
+		return;
+	}
 	number[j] = '\0';
 	num2 = atof(number); /* converting to a number */
 	if(j == 0){ alertError("Wrong parameters, third parameter should be a number."); return; }
@@ -243,7 +253,7 @@ void add_comp_exec(struct complex params[], char input[]){
 	
 	if(!isValidParam(param1 = input[i])){
 		if(input[i] == ','){ 
-			alertError("Invalid comma"); 
+			alertError("Multiple consecutive commas"); 
 			return;
 		}
 		else { 
@@ -305,7 +315,7 @@ void sub_comp_exec(struct complex params[], char input[]){
 	
 	if(!isValidParam(param1 = input[i])){
 		if(input[i] == ','){ 
-			alertError("Invalid comma"); 
+			alertError("Multiple consecutive commas"); 
 			return;
 		}
 		else { 
@@ -371,6 +381,11 @@ void mult_comp_real_exec(struct complex params[], char input[]){
 	
 	while(isdigit(input[i]) || input[i] == '.' || input[i] == '-') number[j++] = input[i++]; /* getting all the digits of the number. */
 	
+	if(input[i] == ',' && j == 0){
+		alertError("Multiple consecutive commas");
+		return;
+	}
+	
 	number[j] = '\0';
 	num1 = atof(number); /* converting to a number */
 	if(j == 0){ alertError("Wrong parameters, second parameter should be a number."); return; }
@@ -417,15 +432,22 @@ void mult_comp_img_exec(struct complex params[], char input[]){
 	i++;
 	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the comma */
+	
 	if(input[i] != ',') { 
 		if(input[i] == 0 || input[i] == '\n' || input[i] == EOF) alertError("Missing parameter");
 		else alertError("Missing comma"); 
 		return; 
 	}
 	i++;
+	
 	while(isspace(input[i]) && input[i] != '\n') i++;  /* skipping all the spaces until the number */
 	
 	while(isdigit(input[i]) || input[i] == '.' || input[i] == '-') number[j++] = input[i++]; /* getting all the digits of the number. */
+	
+	if(input[i] == ',' && j == 0){
+		alertError("Multiple consecutive commas");
+		return;
+	}
 	
 	number[j] = '\0';
 	num1 = atof(number); /* converting to a number */
@@ -481,7 +503,7 @@ void mult_comp_comp_exec(struct complex params[], char input[]){
 	
 	if(!isValidParam(param1 = input[i])){
 		if(input[i] == ','){ 
-			alertError("Invalid comma"); 
+			alertError("Multiple consecutive commas"); 
 			return;
 		}
 		else { 
