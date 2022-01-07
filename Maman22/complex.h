@@ -1,4 +1,3 @@
-
 #define MAX_LEN 81
 #define NUM_OF_PARAMS 6
 #include <ctype.h>
@@ -25,10 +24,7 @@ struct complex abs_comp(complex *param);
 void stop();
 
 
-void getCommand(char input[]);
-void inputSwitch(char command[]);
-int isValidParam(char param);
-void alertError(char errorMsg[]);
-void executeCommand(struct complex params[]);
+
+
 
 
