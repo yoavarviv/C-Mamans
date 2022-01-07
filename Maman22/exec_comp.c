@@ -1,17 +1,33 @@
 #include "exec.h"
 
-/* This function returns whether a given param is valid. */
+/* 
+	This function returns whether a given param is valid.
+	parameters:
+	param - the parameter to check.
+	
+*/
 int isValidParam(char param){
 	return param >= 'A' && param <= 'F';
 }
 
-/* This function prints an error with a given message */
+/* 
+	This function prints a given error message.
+	parameters:
+	errorMsg - the error message to print.
+	
+*/
 void alertError(char errorMsg[]){
 	fprintf(stderr, "%s\n", errorMsg);
 }
 
 
-/* This function validates the user input and if it is valid it calls the function read_comp */
+/* 
+	This function valiadtes a read_comp command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void read_comp_exec(struct complex params[], char input[]){	
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
@@ -103,7 +119,13 @@ void read_comp_exec(struct complex params[], char input[]){
 	read_comp(&params[paramIndex], num1, num2);
 }
 
-/* This function validates the user input and if it is valid it calls the function print_comp */
+/* 
+	This function valiadtes a print_comp command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void print_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0;
 	char param;
@@ -141,7 +163,13 @@ void print_comp_exec(struct complex params[], char input[]){
 	print_comp(&params[paramIndex]);
 }
 
-/* This function validates the user input and if it is valid it calls the function add_comp */
+/* 
+	This function valiadtes an add_comp command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void add_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
@@ -206,7 +234,13 @@ void add_comp_exec(struct complex params[], char input[]){
 	print_comp(&res);
 }
 
-/* This function validates the user input and if it is valid it calls the function sub_comp */
+/* 
+	This function valiadtes a sub_comp command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void sub_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
@@ -271,7 +305,13 @@ void sub_comp_exec(struct complex params[], char input[]){
 	print_comp(&res);
 }
 
-/* This function validates the user input and if it is valid it calls the function mult_comp_real */
+/* 
+	This function valiadtes a mult_comp_real command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void mult_comp_real_exec(struct complex params[], char input[]){
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
@@ -338,7 +378,13 @@ void mult_comp_real_exec(struct complex params[], char input[]){
 	print_comp(&res);
 }
 
-/* This function validates the user input and if it is valid it calls the function mult_comp_img */
+/* 
+	This function valiadtes a mult_comp_img command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void mult_comp_img_exec(struct complex params[], char input[]){
 	int i = 0, j = 0, paramIndex = 0;
 	char number[MAX_LEN];
@@ -405,7 +451,13 @@ void mult_comp_img_exec(struct complex params[], char input[]){
 	print_comp(&res);
 }
 
-/* This function validates the user input and if it is valid it calls the function mult_comp_comp */
+/* 
+	This function valiadtes a mult_comp_comp command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void mult_comp_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0, param1Index = 0;
 	char param, param1;
@@ -470,7 +522,13 @@ void mult_comp_comp_exec(struct complex params[], char input[]){
 	print_comp(&res);
 }
 
-/* This function validates the user input and if it is valid it calls the function abs_comp */
+/* 
+	This function valiadtes an abs_comp command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void abs_comp_exec(struct complex params[], char input[]){
 	int i = 0, paramIndex = 0;
 	char param;
@@ -510,7 +568,13 @@ void abs_comp_exec(struct complex params[], char input[]){
 	print_comp(&res);
 }
 
-/* This function validates the user input and if it is valid it calls the function stop */
+/* 
+	This function valiadtes a stop command, if it is valid, it executes it. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+	input - the user input.
+	
+*/
 void stop_exec(struct complex params[], char input[]){
 	int i = 0;
 	for(; isalpha((input)[i]) || (input)[i] == '_'; i++); /* skipping the command */

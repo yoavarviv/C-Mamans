@@ -35,6 +35,12 @@ int main(){
 	return 0;
 }
 
+/*
+	This function reads the line from the user, and executes the right function if it found a known
+	command name. Else, it returns an error.
+	parameters:
+	params - the complex parameters.
+*/
 void executeCommand(struct complex params[]){
 	char input[MAX_LEN] = {0};
 	char command[MAX_LEN] = {0};
