@@ -12,6 +12,6 @@ Please use it wisely :)
 **NOTE**
 
 The code snippets in here are not the only solution, if you programmed a different solution, it does not mean yours is wrong.
-This was written is Semester 2022A.
+This was written in Semester 2022A.
 
 ---
