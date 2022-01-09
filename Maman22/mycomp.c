@@ -29,6 +29,7 @@ int main(){
 		params[i].im = 0;
 	}
 	
+	printf("Welcome to the complex calculator!\n");
 	FOREVER
 		executeCommand(params);
 	
@@ -49,12 +50,16 @@ void executeCommand(struct complex params[]){
 	
 	fflush(stdin);
 	
+	printf("Please enter your command:\n");
+	
 	if(fgets(input, MAX_LEN, stdin) == NULL){
-		fprintf(stderr, "EOF Entered.");
-		return;
+		fprintf(stderr, "EOF Entered.\n");
+		stop();
 	}
 	
 	input[strcspn(input, "\n")] = 0; /* replace the \n with a null terminator */
+	
+	printf("%s\n", input);
 	
 	for(; isalpha(input[i]) || input[i] == '_'; i++){
 		command[j++] = input[i]; /* get each character of the command */ 

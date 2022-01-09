@@ -286,8 +286,7 @@ void sub_comp_exec(struct complex params[], char input[]){
 			return;
 		}
 		else { 
-			if(param1 == '\n' || param1 == EOF || param1 == 0) 
-				alertError("Missing parameter.");
+			if(param1 == '\n' || param1 == EOF || param1 == 0) alertError("Missing parameter.");
 			else alertError("Undefined complex variable."); 
 			return; 
 		}
