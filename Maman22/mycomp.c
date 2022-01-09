@@ -29,7 +29,19 @@ int main(){
 		params[i].im = 0;
 	}
 	
+	/* Printing the menu */
 	printf("Welcome to the complex calculator!\n");
+	printf("Enter your desired command from the following list:\n\n");
+	printf("read_comp parameter, number, number\n");
+	printf("print_comp parameter\n");
+	printf("add_comp parameter, parameter\n");
+	printf("sub_comp parameter, parameter\n");
+	printf("mult_comp_real parameter, real number\n");
+	printf("mult_comp_img parameter, imaginary number\n");
+	printf("mult_comp_comp parameter, parameter\n");
+	printf("abs_comp parameter\n");
+	printf("stop\n\n");
+	
 	FOREVER
 		executeCommand(params);
 	
@@ -61,6 +73,8 @@ void executeCommand(struct complex params[]){
 	
 	printf("%s\n", input);
 	
+	if(isWhiteSpaceOnly(input)) return;
+	
 	for(; isalpha(input[i]) || input[i] == '_'; i++){
 		command[j++] = input[i]; /* get each character of the command */ 
 	}
@@ -80,7 +94,20 @@ void executeCommand(struct complex params[]){
 	
 	/* if it is, we call the function that executes the command */
 	else (*(cmd[i].func))(params, input);
-	
+}
+
+/*
+	This function checks if a line is only whitespaces.
+	parameters:
+	input - the input line.
+*/
+int isWhiteSpaceOnly(char input[]){
+	int i = 0;
+	while(input[i++] != 0){
+		if(!isspace(input[i - 1]))
+			return 0;
+	}
+	return 1;
 }
 
 

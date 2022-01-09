@@ -107,3 +107,10 @@ void alertError(char errorMsg[]);
 	params - the complex parameters.
 */
 void executeCommand(struct complex params[]);
+
+/*
+	This function checks if a line is only whitespaces.
+	parameters:
+	input - the input line.
+*/
+int isWhiteSpaceOnly(char input[]);
