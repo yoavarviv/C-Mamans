@@ -36,7 +36,7 @@ int main(int argc, char* argv[]){
 			else{
 				fseek(fp, target - 1, SEEK_SET); /* getting the cursor to the spot before the char to read */
 				charToRead = fgetc(fp); /* reading the character */
-				printf("%c\n", charToRead); /* printing the character */
+				printf("%d\n", charToRead); /* printing the decimal value of the character */
 			}
 			fclose(fp); /* if we successfully opened the file, we close it */
 		}
